@@ -1,6 +1,7 @@
 module.exports = (sequelize, DataTypes) => {
   const UserTable = sequelize.define('User', {
     id: {
+      autoIncrement: true,
       type: DataTypes.INTEGER,
       primaryKey: true,
     },
