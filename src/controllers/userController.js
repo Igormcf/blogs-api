@@ -12,7 +12,14 @@ const getAllUsers = async (req, res) => {
   return res.status(statusCode).json(result);
 };
 
+const getUserId = async (req, res) => {
+  const { statusCode, result } = await userService.getUserId(req.params);
+
+  return res.status(statusCode).json(result);
+};
+
 module.exports = {
   createUser,
   getAllUsers,
+  getUserId,
 };
