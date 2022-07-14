@@ -11,7 +11,7 @@ const createUser = async ({ displayName, email, password, image }) => {
     return { statusCode: 409, result: { message: 'User already registered' } };
   }
 
-  const payload = { displayName, email };
+  const payload = { displayName };
 
   const config = { expiresIn: '7d', algorithm: 'HS256' };
 
@@ -22,6 +22,16 @@ const createUser = async ({ displayName, email, password, image }) => {
   return { statusCode: 201, result: { token } };
 };
 
+const getAllUsers = async () => {
+  const findAllUsers = await User.findAll({ attributes: { exclude: 'password' } });
+
+  return {
+    statusCode: 200,
+    result: findAllUsers,
+  };
+};
+
 module.exports = {
   createUser,
+  getAllUsers,
 };

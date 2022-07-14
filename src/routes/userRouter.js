@@ -4,10 +4,14 @@ const router = express.Router();
 
 const rescue = require('express-rescue');
 
-const createUserController = require('../controllers/createUserController');
+const userController = require('../controllers/userController');
 
 const validCreateUser = require('../middlewares/validJoiCreateUser');
 
-router.post('/', validCreateUser, rescue(createUserController.createUser));
+const validJWT = require('../middlewares/validJWT');
+
+router.post('/', validCreateUser, rescue(userController.createUser));
+
+router.get('/', validJWT, rescue(userController.getAllUsers));
 
 module.exports = router;
