@@ -4,7 +4,7 @@ const router = express.Router();
 
 const rescue = require('express-rescue');
 
-const loginController = require('../database/controllers/loginController');
+const loginController = require('../controllers/loginController');
 
 const validLoginJoi = require('../middlewares/validJoiLogin');
 
