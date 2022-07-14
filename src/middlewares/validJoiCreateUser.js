@@ -14,7 +14,6 @@ const createUserValid = (req, res, next) => {
     return next();
   }
 
-  console.log('joicreate', error);
   const [message] = error.details.map((e) => e.message);
 
   return res.status(400).json({ message });
