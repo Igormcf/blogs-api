@@ -12,4 +12,6 @@ const validJWT = require('../middlewares/validJWT');
 
 router.post('/', validJWT, createCategoryValid, rescue(categoriesController.createCategory));
 
+router.get('/', validJWT, rescue(categoriesController.getAllCategories));
+
 module.exports = router;
