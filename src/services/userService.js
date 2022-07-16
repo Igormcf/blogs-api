@@ -11,11 +11,13 @@ const createUser = async ({ displayName, email, password, image }) => {
     return { statusCode: 409, result: { message: 'User already registered' } };
   }
 
-  const payload = { displayName };
-
   const config = { expiresIn: '7d', algorithm: 'HS256' };
 
-  await User.create({ displayName, email, password, image });
+  const { id } = await User.create({ displayName, email, password, image });
+
+  const payload = { displayName, id };
+
+  console.log('newUser', id);
 
   const token = jwt.sign(payload, JWT_SECRET, config);
 
