@@ -17,8 +17,6 @@ const createUser = async ({ displayName, email, password, image }) => {
 
   const payload = { displayName, id };
 
-  console.log('newUser', id);
-
   const token = jwt.sign(payload, JWT_SECRET, config);
 
   return { statusCode: 201, result: { token } };

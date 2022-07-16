@@ -14,7 +14,6 @@ module.exports = async (req, res, next) => {
     
     req.user = decodeToken;
 
-    console.log('id decodeJWT', decodeToken);
     return next();
   } catch (err) {
     return res.status(401).json({ message: 'Expired or invalid token' });

@@ -6,7 +6,7 @@ const { JWT_SECRET } = process.env;
 
 const login = async ({ email, password }) => {
   const findUser = await User.findOne({ where: { email, password } });
-
+  console.log('usuarioooo', findUser.id);
   const config = {
     expiresIn: '7d',
     algorithm: 'HS256',
@@ -16,7 +16,11 @@ const login = async ({ email, password }) => {
     return { statusCode: 400, result: { message: 'Invalid fields' } };
   }
 
-  const token = jwt.sign({ email }, JWT_SECRET, config);
+  const payload = {
+    email,
+    id: findUser.id,
+  };
+  const token = jwt.sign(payload, JWT_SECRET, config);
 
   return { statusCode: 200, result: { token } };
 };
