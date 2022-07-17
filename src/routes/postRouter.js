@@ -14,4 +14,6 @@ router.post('/', validJWT, validPost, rescue(postController.createBlogPost));
 
 router.get('/', validJWT, rescue(postController.getAllPosts));
 
+router.get('/:id', validJWT, rescue(postController.getPostId));
+
 module.exports = router;
