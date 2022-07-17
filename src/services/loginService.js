@@ -6,13 +6,13 @@ const { JWT_SECRET } = process.env;
 
 const login = async ({ email, password }) => {
   const findUser = await User.findOne({ where: { email, password } });
-  console.log('usuarioooo', findUser.id);
+ 
   const config = {
     expiresIn: '7d',
     algorithm: 'HS256',
   };
 
-  if (!findUser) {
+  if (findUser === null) {
     return { statusCode: 400, result: { message: 'Invalid fields' } };
   }
 
