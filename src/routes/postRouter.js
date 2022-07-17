@@ -12,4 +12,6 @@ const validJWT = require('../middlewares/validJWT');
 
 router.post('/', validJWT, validPost, rescue(postController.createBlogPost));
 
+router.get('/', validJWT, rescue(postController.getAllPosts));
+
 module.exports = router;

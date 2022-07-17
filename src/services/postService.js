@@ -1,4 +1,4 @@
-const { BlogPost, Category, PostCategory } = require('../database/models');
+const { BlogPost, Category, PostCategory, User } = require('../database/models');
 
 const createBlogPost = async ({ id, title, content, categoryIds }) => {
   const findCategories = await Promise.all(categoryIds
@@ -21,6 +21,16 @@ const createBlogPost = async ({ id, title, content, categoryIds }) => {
   return { statusCode: 201, result: newPost };
 };
 
+const getAllPosts = async () => {
+  const response = await BlogPost.findAll({
+    include: [{ model: User, as: 'user', attributes: { exclude: 'password' } },
+    { model: Category, as: 'categories', through: { attributes: [] } }],
+  });
+
+  return { statusCode: 200, result: response };
+};
+
 module.exports = {
   createBlogPost,
+  getAllPosts,
 };
