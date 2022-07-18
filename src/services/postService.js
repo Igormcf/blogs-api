@@ -43,8 +43,24 @@ const getPostId = async ({ id }) => {
   return { statusCode: 200, result: response };
 };
 
+const updatePost = async (userId, id, title, content) => {
+  if (userId !== Number(id)) {
+    return { statusCode: 401, result: { message: 'Unauthorized user' } };
+  }
+
+  await BlogPost.update({ title, content }, { where: { id } });
+
+  const response = await BlogPost.findByPk(id, {
+    include: [{ model: User, as: 'user', attributes: { exclude: 'password' } },
+    { model: Category, as: 'categories', through: { attributes: [] } }],
+  });
+
+  return { statusCode: 200, result: response };
+};
+
 module.exports = {
   createBlogPost,
   getAllPosts,
   getPostId,
+  updatePost,
 };

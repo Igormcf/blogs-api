@@ -10,10 +10,14 @@ const validPost = require('../middlewares/validPostCreate');
 
 const validJWT = require('../middlewares/validJWT');
 
+const validUpdatePost = require('../middlewares/validUpdatePost');
+
 router.post('/', validJWT, validPost, rescue(postController.createBlogPost));
 
 router.get('/', validJWT, rescue(postController.getAllPosts));
 
 router.get('/:id', validJWT, rescue(postController.getPostId));
+
+router.put('/:id', validJWT, validUpdatePost, rescue(postController.updatePost));
 
 module.exports = router;
