@@ -20,4 +20,6 @@ router.get('/:id', validJWT, rescue(postController.getPostId));
 
 router.put('/:id', validJWT, validUpdatePost, rescue(postController.updatePost));
 
+router.delete('/:id', validJWT, rescue(postController.deletePost));
+
 module.exports = router;
