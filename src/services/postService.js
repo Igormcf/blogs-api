@@ -1,4 +1,6 @@
-const { BlogPost, Category, PostCategory, User } = require('../database/models');
+const { BlogPost, Category, PostCategory, User, Sequelize } = require('../database/models');
+
+const { Op } = Sequelize;
 
 const createBlogPost = async ({ id, title, content, categoryIds }) => {
   const findCategories = await Promise.all(categoryIds
@@ -74,10 +76,34 @@ const deletePost = async (userId, id) => {
   return { statusCode: 204, result: {} };
 };
 
+const getQueryAll = async (q) => {
+  if (!q) {
+    const response = await BlogPost.findAll({
+      include: [{ model: User, as: 'user', attributes: { exclude: 'password' } },
+      { model: Category, as: 'categories', through: { attributes: [] } }],
+    });
+  
+    return { statusCode: 200, result: response };
+  }
+
+  const getAll = await await BlogPost.findAll({
+    where: { [Op.or]: [{ title: { [Op.like]: `%${q}%` } }, { content: { [Op.like]: `%${q}%` } }] },
+    include: [{ model: User, as: 'user', attributes: { exclude: 'password' } },
+    { model: Category, as: 'categories', through: { attributes: [] } }],
+  });
+
+  if (!getAll) {
+    return { statusCode: 200, result: [] };
+  }
+
+  return { statusCode: 200, result: getAll };
+};
+
 module.exports = {
   createBlogPost,
   getAllPosts,
   getPostId,
   updatePost,
   deletePost,
+  getQueryAll,
 };

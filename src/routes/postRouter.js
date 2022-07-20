@@ -12,6 +12,8 @@ const validJWT = require('../middlewares/validJWT');
 
 const validUpdatePost = require('../middlewares/validUpdatePost');
 
+router.get('/search', validJWT, rescue(postController.getQueryAll));
+
 router.post('/', validJWT, validPost, rescue(postController.createBlogPost));
 
 router.get('/', validJWT, rescue(postController.getAllPosts));
