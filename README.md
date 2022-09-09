@@ -41,3 +41,4 @@ Neste projeto, desenvolvi uma `API` e um banco de dados em `Node.js` para a prod
     "seed": "npx sequelize-cli db:seed:all"
     ```
 </details>
+
